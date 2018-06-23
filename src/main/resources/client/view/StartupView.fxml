@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="491.0" maxWidth="412.0" minHeight="491.0" minWidth="412.0" prefHeight="491.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.StartupView">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="374.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="335.0" minHeight="10.0" prefHeight="335.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Pane prefHeight="236.0" prefWidth="412.0" style="-fx-background-color: #C1CCD9;">
+         <children>
+            <ImageView fitHeight="147.0" fitWidth="156.0" layoutX="258.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@conversation.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="5.0" prefHeight="147.0" prefWidth="257.0" text="Twaddle">
+               <font>
+                  <Font name="Segoe UI Light" size="55.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <GridPane GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="244.0" minHeight="10.0" prefHeight="184.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="151.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane fx:id="grid_server" prefHeight="180.0" prefWidth="412.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="85.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="347.0" minWidth="10.0" prefWidth="327.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Server" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Segoe UI" size="19.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@network.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="txt_server_address" promptText="Hostname or IP address" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Address" GridPane.rowIndex="1" />
+                  <Label text="Port" GridPane.rowIndex="2" />
+                  <Label text="Status" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_server_port" promptText="port between 50 000 - 52 000" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl_server_status" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button fx:id="btn_server_connect" mnemonicParsing="false" onAction="#handler_btn_server_connect_click" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <GridPane fx:id="grid_user" prefHeight="180.0" prefWidth="412.0" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="85.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="347.0" minWidth="10.0" prefWidth="327.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="User" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Segoe UI" size="19.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@user.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="txt_user_username" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Username" GridPane.rowIndex="1" />
+                  <Label text="Status" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl_user_status" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="btn_user_twaddle" mnemonicParsing="false" text="Twaddle" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </GridPane>
+   </children>
+</GridPane>
