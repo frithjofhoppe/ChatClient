@@ -2,19 +2,13 @@ package client.viewModel;
 
 import client.Dialog;
 import client.Main;
-import client.chat.ConnectionObservable;
-import client.chat.ConnectionObserver;
-import client.chat.NetConnection;
+import client.chat.*;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-
-import java.util.Optional;
 
 public class StartupViewModel implements ViewModel {
     public BooleanProperty grid_user = new SimpleBooleanProperty();
@@ -24,16 +18,17 @@ public class StartupViewModel implements ViewModel {
     public StringProperty txt_server_port = new SimpleStringProperty();
 
     public ConnectionObserver connectionObserver;
+    public StartupUsernameObserver startupUsernameObserver;
 
     public StartupViewModel() {
         initalizeView();
-        setConnection();
     }
 
     private void setConnection() {
-        Main.connectionObservable = new ConnectionObservable();
         connectionObserver = new ConnectionObserver(this);
-        Main.connectionObservable.addObserver(connectionObserver);
+        startupUsernameObserver = new StartupUsernameObserver(this);
+        Main.appController.getChatClient().getConnectionObservable().addObserver(connectionObserver);
+        Main.appController.getChatClient().getUsernameObservable().addObserver(startupUsernameObserver);
     }
 
     private void initalizeView() {
@@ -52,17 +47,23 @@ public class StartupViewModel implements ViewModel {
         } else {
             Platform.runLater(() -> {
                 btn_server_connect.set(false);
-                Dialog.Error("Connection failed", "No connection coul be established", "Please check the credentials and try again");
+                Dialog.Error("Connection failed", "No connection could be established", "Please check the credentials and try again");
             });
         }
+    }
+
+    public void setUsernameState(boolean state){
+        System.out.println("Username is " + state);
     }
 
     public void startConnection() {
         int port = Integer.parseInt(txt_server_port.get());
         String host = txt_server_address.get();
+        Main.appController.setChatClient(new ChatClient(host, port));
+        setConnection();
+        Main.appController.getChatClient().start();
         Platform.runLater(() -> {
             btn_server_connect.set(true);
         });
-        Main.startChatClientConnection(port, host);
     }
 }
