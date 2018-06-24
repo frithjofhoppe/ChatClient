@@ -19,6 +19,7 @@ public class StartupViewModel implements ViewModel {
 
     public ConnectionObserver connectionObserver;
     public StartupUsernameObserver startupUsernameObserver;
+    public MessageSenderObservable messageSenderObservable;
 
     public StartupViewModel() {
         initalizeView();
@@ -27,6 +28,7 @@ public class StartupViewModel implements ViewModel {
     private void setConnection() {
         connectionObserver = new ConnectionObserver(this);
         startupUsernameObserver = new StartupUsernameObserver(this);
+        messageSenderObservable = Main.appController.getChatClient().getMessageSenderObservable();
         Main.appController.getChatClient().getConnectionObservable().addObserver(connectionObserver);
         Main.appController.getChatClient().getUsernameObservable().addObserver(startupUsernameObserver);
     }
@@ -54,6 +56,11 @@ public class StartupViewModel implements ViewModel {
 
     public void setUsernameState(boolean state){
         System.out.println("Username is " + state);
+    }
+
+    public void registerWithUsername(String username){
+        Main.appController.getChatClient().getUsernameService().setUsername(username);
+        messageSenderObservable.sendMessage(username);
     }
 
     public void startConnection() {

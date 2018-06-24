@@ -48,7 +48,11 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
 
     @FXML
     public void handler_btn_user_twaddle_click(){
-//        String username =
+        String username = txt_user_username.getText();
+        System.out.println(username);
+        if(username.length() > 0){
+            viewModel.registerWithUsername(username);
+        }
     }
 
     @FXML

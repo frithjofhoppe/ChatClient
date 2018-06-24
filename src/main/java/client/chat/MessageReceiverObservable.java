@@ -15,6 +15,8 @@ public class MessageReceiverObservable extends Observable {
     }
 
     public synchronized void receiveMessage(String message) {
+        System.out.println(message + ": message");
+        System.out.println(usernameService.getUsername() + ": username");
         if (!usernameObservable.getState()) {
             if (validator.isValid(message, usernameService.getUsername())) {
                 usernameObservable.setState(true);
