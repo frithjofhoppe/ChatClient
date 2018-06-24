@@ -44,6 +44,9 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
         txt_server_address.textProperty().bindBidirectional(viewModel.txt_server_address);
         txt_server_port.textProperty().bindBidirectional(viewModel.txt_server_port);
         btn_server_connect.disableProperty().bindBidirectional(viewModel.btn_server_connect);
+        btn_user_twaddle.disableProperty().bindBidirectional(viewModel.btn_user_twaddle);
+        lbl_server_status.textProperty().bindBidirectional(viewModel.lbl_server_status);
+        lbl_user_status.textProperty().bindBidirectional(viewModel.lbl_user_status);
     }
 
     @FXML
