@@ -68,6 +68,7 @@ public class StartupViewModel implements ViewModel {
             System.out.println("Username is valid");
             Platform.runLater(() ->{
                 lbl_user_status.set("Valid");
+                Main.appController.loadView("chat");
             });
         }else {
             System.out.println("Username is already taken");
