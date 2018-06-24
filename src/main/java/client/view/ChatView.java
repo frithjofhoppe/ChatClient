@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -14,9 +15,9 @@ import java.util.ResourceBundle;
 public class ChatView implements FxmlView<ChatViewModel>, Initializable {
 
     @FXML
-    Button btn_exit;
+    ImageView btn_exit;
     @FXML
-    Button btn_sendMessage;
+    ImageView btn_sendMessage;
     @FXML
     TextField txt_messageContent;
     @FXML

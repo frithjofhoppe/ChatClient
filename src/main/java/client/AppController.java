@@ -1,7 +1,9 @@
 package client;
 
 import client.chat.ChatClient;
+import client.view.ChatView;
 import client.view.StartupView;
+import client.viewModel.ChatViewModel;
 import client.viewModel.StartupViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -38,6 +40,9 @@ public class AppController {
     public void initializeViews() {
         ViewTuple<StartupView, StartupViewModel> startupView = FluentViewLoader.fxmlView(StartupView.class).load();
         views.put("startup", startupView);
+
+        ViewTuple<ChatView, ChatViewModel> chatView = FluentViewLoader.fxmlView(ChatView.class).load();
+        views.put("chat", chatView);
     }
 
     public void loadView(String name) {
