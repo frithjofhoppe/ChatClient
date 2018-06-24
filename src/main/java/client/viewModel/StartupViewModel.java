@@ -54,7 +54,6 @@ public class StartupViewModel implements ViewModel {
                 btn_server_connect.set(false);
                 Dialog.Error("Connection failed", "No connection coul be established", "Please check the credentials and try again");
             });
-            System.out.println("Connection failed");
         }
     }
 

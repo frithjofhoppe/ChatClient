@@ -46,6 +46,12 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
         btn_server_connect.disableProperty().bindBidirectional(viewModel.btn_server_connect);
     }
 
+    @FXML
+    public void handler_btn_user_twaddle_click(){
+//        String username =
+    }
+
+    @FXML
     public void handler_btn_server_connect_click() {
         String portContent = txt_server_port.getText();
         String addressContent = txt_server_address.getText();
