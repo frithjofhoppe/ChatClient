@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -59,7 +60,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="txt_messageContent" minHeight="30.0" onKeyPressed="#handler_txt_messageContent_kex_pressed" prefHeight="30.0" prefWidth="360.0" promptText="Message.." style="-fx-border-radius: 0 0 0 0; -fx-background-radius: 0 0 0 0;">
+                  <TextField fx:id="txt_messageContent" minHeight="30.0" prefHeight="30.0" prefWidth="360.0" promptText="Message.." style="-fx-border-radius: 0 0 0 0; -fx-background-radius: 0 0 0 0;">
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
@@ -76,7 +77,42 @@
             </GridPane>
             <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                <content>
-                  <VBox fx:id="vbox_messages" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="10.0" />
+                  <VBox fx:id="vbox_messages" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="10.0">
+                     <children>
+                        <HBox maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefWidth="415.0">
+                           <children>
+                              <VBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="313.0">
+                                 <children>
+                                    <Label text="Frithjof" textFill="#683c3c" />
+                                    <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet " wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="415.0">
+                           <children>
+                              <VBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="313.0">
+                                 <children>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label text="Ftithjof">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Uhrzei">
+                                             <font>
+                                                <Font name="System Italic" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet  Label Lorem ipsumd dolor sit Amet " wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children></VBox>
                </content>
             </ScrollPane>
          </children>

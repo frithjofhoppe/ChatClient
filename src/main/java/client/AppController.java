@@ -7,6 +7,7 @@ import client.viewModel.ChatViewModel;
 import client.viewModel.StartupViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ public class AppController {
     int height = 491;
     ChatClient chatClient;
     private boolean hasStarted = false;
+    private boolean initalized = false;
+    private Scene scene;
 
     public AppController(int width, int height, Stage stage) {
         this.width = width;
@@ -48,9 +51,17 @@ public class AppController {
     public void loadView(String name) {
         ViewTuple tuple = views.get(name);
         if (tuple != null) {
-            Parent root = tuple.getView();
-            stage.setScene(new Scene(root, width, height));
-            stage.show();
+            if (scene == null) {
+                scene = new Scene(tuple.getView(), width, height);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                Platform.runLater(() -> {
+                    scene.setRoot(tuple.getView());
+                        stage.show();
+                });
+            }
+
         }
     }
 

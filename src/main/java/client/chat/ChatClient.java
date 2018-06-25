@@ -31,7 +31,6 @@ public class ChatClient extends Thread {
     public void stopServer(){
         try {
             this.socket.close();
-            connectionObservable.connected(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,8 +61,8 @@ public class ChatClient extends Thread {
         try{
             socket = new Socket(host, port);
             connectionObservable.connected(true);
-            messageReceiver = new MessageReceiver(new DataInputStream(socket.getInputStream()), messageReceiverObservable);
-            messageSender = new MessageSender(new DataOutputStream(socket.getOutputStream()));
+            messageReceiver = new MessageReceiver(new DataInputStream(socket.getInputStream()), messageReceiverObservable, connectionObservable);
+            messageSender = new MessageSender(new DataOutputStream(socket.getOutputStream()), connectionObservable);
             messageSenderObserver = new MessageSenderObserver(messageSender);
             messageSenderObservable.addObserver(messageSenderObserver);
             messageSender.start();

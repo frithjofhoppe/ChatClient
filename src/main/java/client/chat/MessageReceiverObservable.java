@@ -24,7 +24,8 @@ public class MessageReceiverObservable extends Observable {
                 usernameObservable.setState(false);
             }
         }else{
-            //Chat message observabkle
+            setChanged();
+            notifyObservers(message);
         }
     }
 }
