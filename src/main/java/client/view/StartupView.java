@@ -1,5 +1,6 @@
 package client.view;
 
+import client.Dialog;
 import client.viewModel.StartupViewModel;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -7,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -33,6 +35,8 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
     GridPane grid_user;
     @FXML
     GridPane grid_server;
+    @FXML
+    ProgressIndicator progress_serverConnect;
 
     @InjectViewModel
     private StartupViewModel viewModel;
@@ -47,6 +51,8 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
         btn_user_twaddle.disableProperty().bindBidirectional(viewModel.btn_user_twaddle);
         lbl_server_status.textProperty().bindBidirectional(viewModel.lbl_server_status);
         lbl_user_status.textProperty().bindBidirectional(viewModel.lbl_user_status);
+        txt_user_username.textProperty().bindBidirectional(viewModel.txt_user_username);
+        progress_serverConnect.visibleProperty().bindBidirectional(viewModel.progress_serverConnect);
     }
 
     @FXML
@@ -55,6 +61,8 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
         System.out.println(username);
         if(username.length() > 0){
             viewModel.registerWithUsername(username);
+        }else{
+            Dialog.InvalidContent();
         }
     }
 
@@ -81,6 +89,8 @@ public class StartupView implements FxmlView<StartupViewModel>, Initializable {
 
         if (addressValid && portValid) {
             viewModel.startConnection();
+        }else{
+            Dialog.InvalidContent();
         }
     }
 }

@@ -1,24 +1,18 @@
 package client.view;
 
+import client.Dialog;
 import client.viewModel.ChatViewModel;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
-import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,23 +33,31 @@ public class ChatView implements FxmlView<ChatViewModel>, Initializable {
     private ChatViewModel viewModel;
 
     @FXML
-    public void handler_btn_sendMessage_click(){
+    public void handler_btn_sendMessage_click() {
         String content = txt_messageContent.getText();
         viewModel.sendMessage(content);
     }
 
     @FXML
-    public void handler_txt_messageContent_kex_pressed(javafx.scene.input.KeyEvent e){
-        if(e.getCode() == KeyCode.ENTER) {
+    public void handler_txt_messageContent_kex_pressed(javafx.scene.input.KeyEvent e) {
+        if (e.getCode() == KeyCode.ENTER) {
             String content = txt_messageContent.getText();
-            viewModel.sendMessage(content);
+            if(content.trim().length() > 0) {
+                viewModel.sendMessage(content);
+            }else {
+                Dialog.InvalidContent();
+            }
         }
     }
 
     @FXML
-    public void initMove(){
+    public void initMove() {
         viewModel.initalizeConnection();
+    }
 
+    @FXML
+    public void handler_btn_exit_click() {
+        viewModel.connectionClosedByView();
     }
 
     @Override

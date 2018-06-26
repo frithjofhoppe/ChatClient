@@ -4,6 +4,7 @@ import client.chat.ChatClient;
 import client.view.ChatView;
 import client.view.StartupView;
 import client.viewModel.ChatViewModel;
+import client.viewModel.ClientFxmlViewModel;
 import client.viewModel.StartupViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -57,8 +58,9 @@ public class AppController {
                 stage.show();
             } else {
                 Platform.runLater(() -> {
+                    ((ClientFxmlViewModel)tuple.getViewModel()).resetView();
                     scene.setRoot(tuple.getView());
-                        stage.show();
+                    stage.show();
                 });
             }
 

@@ -29,4 +29,12 @@ public class Dialog {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    public static void InvalidCharachter(){
+        Information("Invalid charachter", "The content mustn't contains ':'", "Please correct your content");
+    }
+
+    public static void InvalidContent(){
+        Error("Invalid credentials", "The given information are invalid","Please check the content");
+    }
 }

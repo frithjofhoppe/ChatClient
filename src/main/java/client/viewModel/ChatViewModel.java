@@ -1,5 +1,6 @@
 package client.viewModel;
 
+import client.Dialog;
 import client.Main;
 import client.chat.*;
 import de.saxsys.mvvmfx.ViewModel;
@@ -26,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ChatViewModel implements ViewModel {
+public class ChatViewModel implements ClientFxmlViewModel {
     public StringProperty txt_messageContent = new SimpleStringProperty();
     private ArrayList<Label> messages = new ArrayList<>();
     public ObservableList<Node> list_messages;
@@ -38,16 +39,18 @@ public class ChatViewModel implements ViewModel {
     private ChatMessageObserver chatMessageObserver;
     private UsernameService usernameService;
     private String username = "";
+    private boolean isCurrentView = false;
+    private boolean notHandling = false;
 
     public ChatViewModel() {
         initializeViews();
     }
 
     public void initalizeConnection() {
-        if (chatMessageObserver == null) {
-            setConnection();
-            System.out.println("Entered");
-        }
+//        if (chatMessageObserver == null) {
+//            setConnection();
+//            System.out.println("Entered");
+//        }
     }
 
     private void setConnection() {
@@ -61,14 +64,22 @@ public class ChatViewModel implements ViewModel {
     }
 
     private void initializeViews() {
+        isCurrentView = true;
         txt_messageContent.set("");
+        if (list_messages != null) list_messages.clear();
+        messageSenderObservable = null;
+        messageReceiverObservable = null;
+        chatConnectionObserver = null;
+        chatMessageObserver = null;
+        usernameService = null;
+        username = null;
     }
 
     public void receiveMessage(String message) {
         updateMessages(message);
     }
 
-    private HBox generateMessage(String message, String user, boolean orientation){
+    private HBox generateMessage(String message, String user, boolean orientation) {
         HBox h1 = new HBox();
         h1.setMinWidth(Region.USE_COMPUTED_SIZE);
         h1.setMinHeight(Region.USE_COMPUTED_SIZE);
@@ -113,9 +124,10 @@ public class ChatViewModel implements ViewModel {
         Date date = new Date();   // given date
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         calendar.setTime(date);   // assigns calendar to given date
-        int hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
-        int minutes = calendar.get(Calendar.MINUTE);
+        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)); // gets hour in 24h format
+        String minutes = String.valueOf(calendar.get(Calendar.MINUTE));
 
+        if (minutes.length() < 2) minutes = "0" + minutes;
 
         Label time = new Label();
         time.setText(hour + ":" + minutes);
@@ -155,33 +167,60 @@ public class ChatViewModel implements ViewModel {
         String user;
         String[] splitted = message.split(":");
 
-        System.out.println(message + " once again");
-        System.out.println(splitted[0] +" u-name");
-
-        if(usernameService.getUsername().equals(splitted[0])){
+        if (usernameService.getUsername().equals(splitted[0])) {
             personal = false;
             user = usernameService.getUsername();
-        }else {
+        } else {
             personal = true;
             user = splitted[0];
         }
 
         Platform.runLater(() -> {
-            HBox toSet = generateMessage(splitted[1],user, personal);
+            HBox toSet = generateMessage(splitted[1], user, personal);
             list_messages.add(toSet);
         });
     }
 
-    public void connectionClosed(){
-        Main.appController.getChatClient().stopServer();
-        Main.appController.loadView("startup");
+    public void connectionClosedByObservable() {
+        if (!notHandling) {
+            closeConnection();
+            Platform.runLater(() -> {
+                Dialog.Error("Connection closed", "Server connection has sbruptely been closed", "Try to connect again");
+            });
+            Main.appController.loadView("startup");
+        } else {
+            notHandling = false;
+        }
     }
 
     public void sendMessage(String message) {
-        System.out.println("Send");
-        messageSenderObservable.sendMessage(message);
-        Platform.runLater(() -> {
-            txt_messageContent.set("");
-        });
+        if (message.matches("^((?!:).)*$")) {
+            System.out.println("Send");
+            messageSenderObservable.sendMessage(message);
+            Platform.runLater(() -> {
+                txt_messageContent.set("");
+            });
+        } else {
+            Platform.runLater(() -> {
+                Dialog.InvalidCharachter();
+            });
+        }
+    }
+
+    public void connectionClosedByView() {
+        notHandling = true;
+        closeConnection();
+        Main.appController.loadView("startup");
+    }
+
+    public void closeConnection() {
+        Main.appController.getChatClient().stopServer();
+        isCurrentView = false;
+    }
+
+    @Override
+    public void resetView() {
+        initializeViews();
+        if (messageSenderObservable == null) setConnection();
     }
 }

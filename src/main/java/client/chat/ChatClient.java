@@ -30,7 +30,7 @@ public class ChatClient extends Thread {
 
     public void stopServer(){
         try {
-            this.socket.close();
+           if(this.socket != null) this.socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

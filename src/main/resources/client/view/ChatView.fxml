@@ -29,7 +29,7 @@
                   <Image url="@conversation.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_exit" fitHeight="104.0" fitWidth="33.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_exit" fitHeight="104.0" fitWidth="33.0" layoutX="14.0" layoutY="5.0" onMouseClicked="#handler_btn_exit_click" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@exit.png" />
                </image>

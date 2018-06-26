@@ -8,10 +8,12 @@ import client.viewModel.StartupViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.omg.CORBA.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +33,15 @@ public class Main extends Application {
         appController.start();
     }
 
-
+    @Override
+    public void stop() throws Exception {
+        if (appController.getChatClient() != null) {
+            Platform.runLater(() -> {
+                appController.getChatClient().stopServer();
+            });
+        }
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
         launch(args);
